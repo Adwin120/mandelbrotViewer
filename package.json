@@ -1,0 +1,23 @@
+{
+  "name": "mandelbrotsetjs",
+  "version": "1.0.0",
+  "description": "web app for viewing Mandelbrot set",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adwin120/mandelbrotViewer.git"
+  },
+  "author": "Adam Winnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adwin120/mandelbrotViewer/issues"
+  },
+  "homepage": "https://github.com/Adwin120/mandelbrotViewer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
