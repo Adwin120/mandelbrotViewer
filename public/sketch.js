@@ -13,6 +13,15 @@ let tempZoom = 1
 let loading = true;
 let mouseIsOver = true;
 let mandelbrotWorker = new Worker('static/mandelbrot-web-worker.js');       //web worker that computes if a set of points are in the set
+function complexAbsolute(complex) {
+    return Math.sqrt(complex.re ** 2 + complex.im ** 2);
+}
+function complexSquare(complex) {
+    return {
+        re: (complex.re ** 2 - complex.im ** 2),
+        im: (2 * complex.re * complex.im)
+    };
+}
 function drawMandelbrot() {
     mandelbrotWorker.postMessage([mandelbrotImg.width, mandelbrotImg.height, axesRanges]);
 }
@@ -87,6 +96,7 @@ function setup() {
 }
 
 function draw() {
+    const m = 20;
     background(51);
     if (mouseIsPressed && mouseIsOver) {
         tempImgCoordinates.set(tempImgCoordinates.x + mouseX - pmouseX, tempImgCoordinates.y + mouseY - pmouseY);
