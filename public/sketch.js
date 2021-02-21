@@ -1,9 +1,9 @@
-const m = 20;
 let mandelbrotImg;          //image mandelbrot set is being drew onto   
 let myCanvas;               //p5 canvas object
 let mouseIsOver = true;
-let testImage;
-let scene;
+let scene = {};
+let renderedImgs = []
+let renderBtn;
 function setup() {
     scene = {
         position : createVector(0,0),
@@ -13,15 +13,24 @@ function setup() {
         },
         vecToSceneCoor(vector) {
             return p5.Vector.sub(vector, this.position).mult(1/this.zoom)
+        },
+        get canvasStartPosition() {
+            return this.vecToSceneCoor(createVector(0,0))
+        },
+        get canvasEndPosition() {
+            return this.vecToSceneCoor(createVector(width,height))
+        },
+        get dimensions() {
+            return this.canvasEndPosition.sub(this.canvasStartPosition)
         }
     }
     myCanvas = createCanvas(720, 720).parent('canvasContainer');
     myCanvas.mousePressed(event => {
-        myCanvas.canvas.style.cursor = 'pointer';
+        cursor(HAND)
         return false;
     });
     myCanvas.mouseReleased(event => {
-        myCanvas.canvas.style.cursor = 'default';
+        cursor('default')
         return false;
     });
     myCanvas.mouseOver(event => {
@@ -39,8 +48,15 @@ function setup() {
     //loadPixels();
     //mandelbrotImg = createImage(720, 720);
     //iterationPathCheckbox = createCheckbox('draw f(z) iteration path').parent('menuContainer')
+    renderBtn = createButton('render')
+    renderBtn.parent('menuContainer')
+    renderBtn.mousePressed((event) => {
+        let {x,y} = scene.canvasStartPosition
+        let {x : width, y : height} = scene.dimensions
+        renderedImgs.push({img:loadImage("static/pies.png"), x , y , width, height})
+    })
     tint(255, 128)
-    testImage = loadImage("static/pies.png")
+    renderedImgs.push({img:loadImage("static/pies.png"), x : 0, y : 0, width, height})
 }
 function draw() {
     translate(scene.position)
@@ -50,5 +66,7 @@ function draw() {
     if (mouseIsPressed && mouseIsOver) {
         scene.position.add(mouseX - pmouseX, mouseY - pmouseY)
     }
-    image(testImage,0,0,width,height)
+    for (const imgData of renderedImgs) {
+        image(imgData.img, imgData.x, imgData.y, imgData.width, imgData.height)
+    }
 }
