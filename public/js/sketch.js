@@ -1,29 +1,12 @@
-let mandelbrotImg;          //image mandelbrot set is being drew onto   
+import Scene from '/static/js/Scene.js'
+//let mandelbrotImg;          //image mandelbrot set is being drew onto   
 let myCanvas;               //p5 canvas object
 let mouseIsOver = true;
 let scene = {};
 let renderedImgs = []
 let renderBtn;
 function setup() {
-    scene = {
-        position : createVector(0,0),
-        zoom : 1,
-        vecToCanvasCoor(vector) {
-            return p5.Vector.add(vector.mult(this.zoom), this.position)
-        },
-        vecToSceneCoor(vector) {
-            return p5.Vector.sub(vector, this.position).mult(1/this.zoom)
-        },
-        get canvasStartPosition() {
-            return this.vecToSceneCoor(createVector(0,0))
-        },
-        get canvasEndPosition() {
-            return this.vecToSceneCoor(createVector(width,height))
-        },
-        get dimensions() {
-            return this.canvasEndPosition.sub(this.canvasStartPosition)
-        }
-    }
+    scene = new Scene(createVector(0,0), 1)
     myCanvas = createCanvas(720, 720).parent('canvasContainer');
     myCanvas.mousePressed(event => {
         cursor(HAND)
@@ -70,3 +53,6 @@ function draw() {
         image(imgData.img, imgData.x, imgData.y, imgData.width, imgData.height)
     }
 }
+//TODO this is a dirty quick fix move to instance mode of p5.js
+window.setup = setup
+window.draw = draw
