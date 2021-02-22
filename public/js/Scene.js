@@ -1,5 +1,6 @@
 export default class Scene {
-    constructor(position, zoom) {
+    constructor(p5instance, position, zoom) {
+        this.p = p5instance
         this.position = position
         this.zoom = zoom
     }
@@ -10,10 +11,10 @@ export default class Scene {
         return p5.Vector.sub(vector, this.position).mult(1/this.zoom)
     }
     get canvasStartPosition() {
-        return this.vecToSceneCoor(createVector(0,0))
+        return this.vecToSceneCoor(this.p.createVector(0,0))
     }
     get canvasEndPosition() {
-        return this.vecToSceneCoor(createVector(width,height))
+        return this.vecToSceneCoor(this.p.createVector(this.p.width, this.p.height))
     }
     get dimensions() {
         return this.canvasEndPosition.sub(this.canvasStartPosition)
