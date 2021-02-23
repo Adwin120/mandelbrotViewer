@@ -1,12 +1,22 @@
 import Scene from './Scene.js'
+import renderMethod from './render_strategies/rainbow_dog.js'
 
 const sketch = (p) => {
 
-    let myCanvas;
-    let mouseIsOver = true;
-    let scene = {};
+    let myCanvas
+    let mouseIsOver = true
+    let scene = {}
     let renderedImgs = []
-    let renderBtn;
+    let renderBtn
+    //TODO refactor render function, change word render to load
+    //let imageLoader = {}
+    const render = () => {
+        let {x,y} = scene.canvasStartPosition
+        let {x : width, y : height} = scene.dimensions
+        Promise.resolve(renderMethod(p, scene)).then(image => {
+            renderedImgs.push({img : image, x , y , width, height})
+        })
+    }
 
     p.setup = function() {
         scene = new Scene(p, p.createVector(0,0), 1)
@@ -36,17 +46,15 @@ const sketch = (p) => {
         //iterationPathCheckbox = createCheckbox('draw f(z) iteration path').parent('menuContainer')
         renderBtn = p.createButton('render').parent('menuContainer')
         renderBtn.mousePressed((event) => {
-            let {x,y} = scene.canvasStartPosition
-            let {x : width, y : height} = scene.dimensions
-            renderedImgs.push({img:p.loadImage("static/pies.png"), x , y , width, height})
+            render()
         })
-        p.tint(255, 128)
-        renderedImgs.push({img:p.loadImage("static/pies.png"), x : 0, y : 0, width : p.width, height : p.height})
+        //p.tint(255, 128)
+        render()
     }
     p.draw = function () {
+        p.background(51);
         p.translate(scene.position)
         p.scale(scene.zoom)
-        p.background(51);
         //console.log(scene.vecToSceneCoor(p.createVector(p.mouseX, p.mouseY)))
         if (p.mouseIsPressed && mouseIsOver) {
             scene.position.add(p.mouseX - p.pmouseX, p.mouseY - p.pmouseY)
