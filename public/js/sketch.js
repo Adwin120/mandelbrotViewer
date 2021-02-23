@@ -1,25 +1,18 @@
 import Scene from './Scene.js'
 import renderMethod from './render_strategies/rainbow_dog.js'
+import Renderer from './Renderer.js'
 
 const sketch = (p) => {
 
     let myCanvas
     let mouseIsOver = true
     let scene = {}
-    let renderedImgs = []
+    let renderer = {}
     let renderBtn
-    //TODO refactor render function, change word render to load
-    //let imageLoader = {}
-    const render = () => {
-        let {x,y} = scene.canvasStartPosition
-        let {x : width, y : height} = scene.dimensions
-        Promise.resolve(renderMethod(p, scene)).then(image => {
-            renderedImgs.push({img : image, x , y , width, height})
-        })
-    }
 
     p.setup = function() {
         scene = new Scene(p, p.createVector(0,0), 1)
+        renderer = new Renderer(p, renderMethod)
         myCanvas = p.createCanvas(720, 720)
         p.pixelDensity(1);
 
@@ -46,10 +39,10 @@ const sketch = (p) => {
         //iterationPathCheckbox = createCheckbox('draw f(z) iteration path').parent('menuContainer')
         renderBtn = p.createButton('render').parent('menuContainer')
         renderBtn.mousePressed((event) => {
-            render()
+            renderer.render(scene)
         })
         //p.tint(255, 128)
-        render()
+        renderer.render(scene)
     }
     p.draw = function () {
         p.background(51);
@@ -59,9 +52,7 @@ const sketch = (p) => {
         if (p.mouseIsPressed && mouseIsOver) {
             scene.position.add(p.mouseX - p.pmouseX, p.mouseY - p.pmouseY)
         }
-        for (const imgData of renderedImgs) {
-            p.image(imgData.img, imgData.x, imgData.y, imgData.width, imgData.height)
-        }
+        renderer.draw()
     }
 }
 

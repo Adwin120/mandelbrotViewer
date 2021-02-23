@@ -7,8 +7,7 @@ export default function(p, scene) {
         let frequency = 0.01
         for (let i = 0; i < image.width; i++) {
             for (let j = 0; j < image.height; j++) {
-                let pix = (i + j * image.width) * 4;
-                //let {x : alpha, y :beta} = scene.canvasStartPosition.add(scene.vecToSceneCoor(p.createVector(i,j)))
+                let pix = (i + j * image.width) * 4
                 let alpha = p.map(i, 0, image.width, scene.canvasStartPosition.x, scene.canvasEndPosition.x)
                 let beta = p.map(j, 0, image.height, scene.canvasStartPosition.y, scene.canvasEndPosition.y)
                 let t = frequency*Math.hypot(alpha,beta)
@@ -21,7 +20,5 @@ export default function(p, scene) {
         image.updatePixels()
         return image
     })
-    //let image = p.createImage(parseInt(width),parseInt(height))
-    //console.log(width,height)
     
 }
