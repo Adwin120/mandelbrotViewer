@@ -4,6 +4,7 @@ export default function(p, scene) {
     }).then(image => {
         image.resize(p.width,p.height)
         image.loadPixels()
+        console.dir(image.pixels)
         let frequency = 0.01
         for (let i = 0; i < image.width; i++) {
             for (let j = 0; j < image.height; j++) {

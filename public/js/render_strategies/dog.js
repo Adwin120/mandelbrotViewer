@@ -1,3 +1,3 @@
-export default function(p,x,y,width,height) {
+export default function(p,scene) {
     return p.loadImage('./static/js/render_strategies/pies.png')
 }
