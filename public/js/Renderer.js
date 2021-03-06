@@ -10,7 +10,6 @@ class Renderer {
         let {x,y} = scene.canvasStartPosition
         let {x : width, y : height} = scene.dimensions
         Promise.resolve(this.renderMethod(this.p, scene)).then(image => {
-            console.log(image)
             this.renderedImgs.push(new imageData(image, x, y, width, height))
         })
     }

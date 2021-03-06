@@ -1,11 +1,11 @@
 function complexAbsolute(complex) {
-    return Math.sqrt(complex.re ** 2 + complex.im ** 2);
+    return Math.sqrt(complex.re ** 2 + complex.im ** 2)
 }
 function complexSquare(complex) {
     return {
         re: (complex.re ** 2 - complex.im ** 2),
         im: (2 * complex.re * complex.im)
-    };
+    }
 }
 
 export default function(p, scene) {
@@ -43,15 +43,15 @@ export default function(p, scene) {
                 }
             }
             if (isInMandelbrot) {
-                image.pixels[pix + 1] = 0;
-                image.pixels[pix + 0] = 0;
-                image.pixels[pix + 2] = 0;
-                image.pixels[pix + 3] = 255;
+                image.pixels[pix + 1] = 0
+                image.pixels[pix + 0] = 0
+                image.pixels[pix + 2] = 0
+                image.pixels[pix + 3] = 255
             } else {
-                image.pixels[pix + 0] = 0;
-                image.pixels[pix + 1] = 0;
-                image.pixels[pix + 2] = i*3;
-                image.pixels[pix + 3] = 255;
+                image.pixels[pix + 0] = 0
+                image.pixels[pix + 1] = 0
+                image.pixels[pix + 2] = i*3
+                image.pixels[pix + 3] = 255
             }
         }
     }

@@ -1,5 +1,3 @@
-import { imageData } from "./Renderer"
-
 export default class Scene {
     constructor(p5instance, position, zoom) {
         this.p = p5instance
@@ -35,7 +33,7 @@ export default class Scene {
     }
     draw(imgdata) {
         //TODO refactor this method, maybe allow another argument set or something
-        console.assert(imgdata instanceof imageData)
+        //console.assert(imgdata instanceof imageData)
         let {x, y} = this.vecToCanvas(this.p.createVector(imgdata.x,imgdata.y))
         let width = imgdata.width * this.zoom
         let height = imgdata.height * this.zoom

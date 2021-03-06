@@ -1,5 +1,5 @@
 import Scene from './Scene.js'
-import renderMethod from './render_strategies/mandelbrot_sync.js'
+import renderMethod from './render_strategies/mandelbrot_worker_strategy/main.js'
 import Renderer from './Renderer.js'
 
 const sketch = (p) => {
@@ -13,7 +13,6 @@ const sketch = (p) => {
     p.setup = function() {
         scene = new Scene(p, p.createVector(0,0), 1)
         renderer = new Renderer(p, renderMethod)
-        console.log(scene)
         myCanvas = p.createCanvas(720, 720)
         p.pixelDensity(1);
 
