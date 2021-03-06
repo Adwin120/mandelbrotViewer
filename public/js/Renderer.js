@@ -10,18 +10,12 @@ class Renderer {
         let {x,y} = scene.canvasStartPosition
         let {x : width, y : height} = scene.dimensions
         Promise.resolve(this.renderMethod(this.p, scene)).then(image => {
+            console.log(image)
             this.renderedImgs.push(new imageData(image, x, y, width, height))
         })
     }
-
-    draw() {
-        //TODO add optimalisation, dont draw image that is 100% covered on the screen or is outside of it
-        for (const imgData of this.renderedImgs) {
-            this.p.image(imgData.src, imgData.x, imgData.y, imgData.width, imgData.height)
-        }
-    }
 }
-class imageData {
+export class imageData {
     constructor(src, x, y, width, height) {
         this.src = src
         this.x = x

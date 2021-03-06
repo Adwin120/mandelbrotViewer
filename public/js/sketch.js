@@ -35,7 +35,7 @@ const sketch = (p) => {
             let pzoom = scene.zoom
             scene.zoom *= event.deltaY > 0 ? 0.9 : 1.1
             //scene.position.mult(scene.zoom / pzoom).sub((scene.zoom / pzoom - 1)*p.mouseX, (scene.zoom / pzoom - 1)*p.mouseY)
-            //scene.position.add((1/scene.zoom - 1/pzoom)*p.mouseX, (1/scene.zoom - 1/pzoom)*p.mouseY)
+            scene.position.add((1/scene.zoom - 1/pzoom)*p.mouseX, (1/scene.zoom - 1/pzoom)*p.mouseY)
         });
         //loadPixels();
         //iterationPathCheckbox = createCheckbox('draw f(z) iteration path').parent('menuContainer')
@@ -48,14 +48,16 @@ const sketch = (p) => {
     }
     p.draw = function () {
         p.background(51);
-        p.scale(scene.zoom)
-        p.translate(scene.position)
-        console.log(scene.position, scene.zoom)
+        //p.scale(scene.zoom)
+        //p.translate(scene.position)
+        //console.log(scene.position, scene.zoom)
         //console.log(scene.vecToSceneCoor(p.createVector(p.mouseX, p.mouseY)))
         if (p.mouseIsPressed && mouseIsOver) {
             scene.position.add((p.mouseX - p.pmouseX)/scene.zoom, (p.mouseY - p.pmouseY)/scene.zoom)
         }
-        renderer.draw()
+        for (const imgdata of renderer.renderedImgs) {
+            scene.draw(imgdata)
+        }
     }
 }
 
