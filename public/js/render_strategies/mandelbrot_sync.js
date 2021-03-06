@@ -17,6 +17,7 @@ export default function(p, scene) {
         top : p.map(scene.canvasStartPosition.y, 0, p.height, -2, 2),
         bottom : p.map(scene.canvasEndPosition.y, 0, p.height, -2, 2)
     }
+    //TODO same for resolution
     const image = p.createImage(1000, 1000)
     image.loadPixels()
     for (let x = 0; x < image.width; x++) {

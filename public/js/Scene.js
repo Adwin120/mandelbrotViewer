@@ -5,10 +5,10 @@ export default class Scene {
         this.zoom = zoom
     }
     vecToCanvasCoor(vector) {
-        return p5.Vector.add(vector.mult(this.zoom), this.position)
+        return p5.Vector.add(vector, this.position).mult(this.zoom)
     }
     vecToSceneCoor(vector) {
-        return p5.Vector.sub(vector, this.position).mult(1/this.zoom)
+        return p5.Vector.sub(vector.mult(1/this.zoom), this.position)
     }
     get canvasStartPosition() {
         return this.vecToSceneCoor(this.p.createVector(0,0))
