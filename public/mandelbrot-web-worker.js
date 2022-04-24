@@ -1,5 +1,4 @@
 const n = 100;
-const m = 20;
 // const drawAxes = (img) => {
 //     zeroY = mapToCanvasCoordinates(0, 'y');
 //     for (let x = 0; x < width; x++) {
